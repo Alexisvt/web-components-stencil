@@ -10,8 +10,42 @@
 
     <script type="module" src="/build/web-components-stencil.esm.js"></script>
     <script nomodule src="/build/web-components-stencil.js"></script>
+
+    <style>
+      .page {
+        font-family: sans-serif;
+      }
+
+      .side-nav__links-container {
+        list-style: none;
+      }
+
+      .side-nav__link-container {
+        margin: 1rem 0;
+      }
+
+      .side-nav__link {
+        text-decoration: none;
+        color: black;
+      }
+
+    </style>
   </head>
-  <body>
-    <side-drawer></uc-side-drawer>
+  <body class="page">
+    <side-drawer title="Main Menu">
+      <nav class="side-nav">
+        <ul class="side-nav__links-container">
+          <li class="side-nav__link-container">
+            <a class="side-nav__link" href="#">First link</a>
+          </li>
+          <li class="side-nav__link-container">
+            <a class="side-nav__link" href="#">Second link</a>
+          </li>
+          <li class="side-nav__link-container">
+            <a class="side-nav__link" href="#">Third link</a>
+          </li>
+        </ul>
+      </nav>
+    </uc-side-drawer>
   </body>
 </html>
