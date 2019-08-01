@@ -9,7 +9,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface SideDrawer {}
+  interface SideDrawer {
+    'title': string;
+  }
 }
 
 declare global {
@@ -26,7 +28,9 @@ declare global {
 }
 
 declare namespace LocalJSX {
-  interface SideDrawer extends JSXBase.HTMLAttributes<HTMLSideDrawerElement> {}
+  interface SideDrawer extends JSXBase.HTMLAttributes<HTMLSideDrawerElement> {
+    'title'?: string;
+  }
 
   interface IntrinsicElements {
     'side-drawer': SideDrawer;
