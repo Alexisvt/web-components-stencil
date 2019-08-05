@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'side-drawer',
@@ -6,6 +6,7 @@ import { Component, h, Prop } from '@stencil/core';
   shadow: true,
 })
 export class SideDrawer {
+  @State() showContactInfo = false;
   @Prop({ reflectToAttr: true }) title: string;
   @Prop({ reflectToAttr: true, mutable: true }) open: boolean;
 
@@ -13,8 +14,29 @@ export class SideDrawer {
     this.open = false;
   };
 
+  onContentChange = (content: string) => {
+    this.showContactInfo = content === 'contact';
+  };
+
   render() {
     let drawerStateClass = '';
+    let mainContent = <slot />;
+
+    if (this.showContactInfo) {
+      mainContent = (
+        <div class="contact-information">
+          <h2>Contact Information</h2>
+          <p>You can reach us via phone or email.</p>
+          <ul>
+            <li>Phone: 123123123213</li>
+            <li>
+              E-Mail: <a href="mailto:test@gmail.com">test@gmail.com</a>
+            </li>
+          </ul>
+          <slot />
+        </div>
+      );
+    }
 
     if (this.open) {
       drawerStateClass = 'side-drawer--open';
@@ -32,12 +54,24 @@ export class SideDrawer {
           </button>
         </header>
         <section class="tabs">
-          <button class="tabs__nav-button--active tabs__nav-button">Navigation</button>
-          <button class="tabs__nav-button">Content</button>
+          <button
+            class={'tabs__nav-button ' + (!this.showContactInfo ? 'tabs__nav-button--active ' : '')}
+            onClick={() => {
+              this.onContentChange('nav');
+            }}
+          >
+            Navigation
+          </button>
+          <button
+            class={'tabs__nav-button ' + (this.showContactInfo ? 'tabs__nav-button--active ' : '')}
+            onClick={() => {
+              this.onContentChange('contact');
+            }}
+          >
+            Content
+          </button>
         </section>
-        <main>
-          <slot />
-        </main>
+        <main>{mainContent}</main>
       </aside>
     );
   }
