@@ -32,6 +32,7 @@
     </style>
   </head>
   <body class="page">
+    <button class="side-drawer-btn">Open Side Menu</button>
     <side-drawer title="Main Menu">
       <nav class="side-nav">
         <ul class="side-nav__links-container">
@@ -47,5 +48,19 @@
         </ul>
       </nav>
     </uc-side-drawer>
+
+    <script>
+
+      const sideDrawerButton = document.querySelector('.side-drawer-btn');
+
+      sideDrawerButton.addEventListener('click', () => {
+        const drawer = document.querySelector('side-drawer');
+
+        if (!drawer.open) {
+          drawer.setAttribute('open', 'true');
+        }
+      })
+
+    </script>
   </body>
 </html>
