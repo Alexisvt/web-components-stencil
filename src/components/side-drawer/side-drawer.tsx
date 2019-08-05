@@ -7,24 +7,38 @@ import { Component, h, Prop } from '@stencil/core';
 })
 export class SideDrawer {
   @Prop({ reflectToAttr: true }) title: string;
-  @Prop() open: boolean;
+  @Prop({ reflectToAttr: true, mutable: true }) open: boolean;
+
+  onCloseDrawer = () => {
+    this.open = false;
+  };
 
   render() {
-    let content = null;
+    let drawerStateClass = '';
 
     if (this.open) {
-      content = (
-        <aside class="side-drawer">
-          <header>
-            <h1>{this.title}</h1>
-          </header>
-          <main>
-            <slot />
-          </main>
-        </aside>
-      );
+      drawerStateClass = 'side-drawer--open';
     }
 
-    return content;
+    return (
+      <aside class={`side-drawer ${drawerStateClass}`}>
+        <header>
+          <h1>{this.title}</h1>
+          <button
+            onClick={this.onCloseDrawer}
+            class="side-drawer__close-btn side-drawer__close-btn--focus-off"
+          >
+            X
+          </button>
+        </header>
+        <section class="tabs">
+          <button class="tabs__nav-button--active tabs__nav-button">Navigation</button>
+          <button class="tabs__nav-button">Content</button>
+        </section>
+        <main>
+          <slot />
+        </main>
+      </aside>
+    );
   }
 }
